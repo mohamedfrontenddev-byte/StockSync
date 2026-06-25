@@ -1,8 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
+// Use Vercel-friendly base path. The previous value `/StockSync/` was the
+// GitHub Pages URL prefix and caused assets to 404 on Vercel (blank page).
+// On Vercel we want assets served from the root of the deployed domain.
 export default defineConfig({
-  base: '/StockSync/',
+  base: '/',
   root: '.',
   plugins: [react()],
   server: {
@@ -10,5 +13,10 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom'],
+  },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    sourcemap: false,
   },
 });
